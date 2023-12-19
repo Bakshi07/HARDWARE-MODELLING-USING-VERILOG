@@ -1,0 +1,14 @@
+module CLA_TB;
+reg [3:0]A,B; reg cin;
+wire [3:0]S; wire cout;
+CLA DUT(S,cout,A,B,cin);
+initial
+ begin
+   $dumpfile("CLA_TB.vcd");$dumpvars(0,CLA_TB);
+   $monitor($time,"A=%4h,B=%4h,cin=%b,S=%4b,cout=%b",A,B,cin,S,cout);
+    #5 A=4'h7;B=4'h8;cin=1'b1;
+    #5 A=4'h8;B=4'h0;
+    #5 A=4'hA;B=4'h5;
+    #5 $finish;
+end
+endmodule
