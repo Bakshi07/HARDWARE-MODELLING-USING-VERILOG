@@ -1,0 +1,39 @@
+module DFF_SYNC_TB();
+  reg d, clk, set, reset;
+  wire q, qbar;
+
+  DFF_SYNC D1 (
+    .q(q),
+    .qbar(qbar),
+    .d(d),
+    .set(set),
+    .reset(reset),
+    .clk(clk)
+  );
+
+  initial
+  begin
+    clk = 1'b0;
+    reset = 1'b1;
+    // Add some initial values to other signals if needed
+  end
+
+  always
+    #5 clk = ~clk;
+
+  initial
+  begin
+    $dumpfile("DFF_SYNC_TB.vcd");
+    $dumpvars(0, DFF_SYNC_TB);
+    $monitor($time, "q=%b, qbar=%b, d=%b, set=%b, reset=%b", q, qbar, d, set, reset);
+
+    // Test sequence
+    #10 reset = 1'b0; d = 1'b1;
+    #5 set = 1'b1; d = 1'b0;
+    #5 set = 1'b0;
+    // Add more test steps if needed
+
+    // End simulation after some time
+    #30 $finish;
+  end
+endmodule

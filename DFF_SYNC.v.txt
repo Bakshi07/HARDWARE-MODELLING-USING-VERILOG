@@ -1,0 +1,11 @@
+module DFF_SYNC(q,qbar,d,set,reset,clk);
+input d,clk,set,reset;
+output reg q; output  qbar;
+assign qbar=~q;
+always@(posedge clk)
+begin
+if(reset)q<=0;
+else if(set)q<=1;
+else q<=d;
+end
+endmodule

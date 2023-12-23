@@ -1,0 +1,18 @@
+module Ring_Counter_TB();
+reg init,clk;
+wire [7:0]count;
+Ring_Counter r1(clk,init,count);
+initial begin
+ clk=1'b0;
+ init=1'b1;
+end
+ always
+#5 clk=~clk;
+initial
+ begin
+  $dumpfile("Ring_Counter_TB.vcd");$dumpvars(0,Ring_Counter_TB);
+  $monitor($time,"count=%8b,init=%b",count,init);
+# 15 init=1'b0;
+#100 $finish;
+end
+endmodule
